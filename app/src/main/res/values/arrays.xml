@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lista_marca">
+        <item> </item>
+        <item>Volkswagen</item>
+        <item>Audi</item>
+        <item>Seat</item>
+    </string-array>
+
+    <string-array name="lista_modelo">
+        <item> </item>
+        <item>Modelo de Volkswagen</item>
+        <item>Jetta</item>
+        <item>Golf</item>
+        <item>Polo</item>
+        <item>Modelo de Audi</item>
+        <item>Audi A3</item>
+        <item>Audi A4</item>
+        <item>Audi S8</item>
+        <item>Modelo de Seat</item>
+        <item>Leon 2005</item>
+        <item>Cupra 2016</item>
+        <item>Arona 2017</item>
+
+    </string-array>
+
+    <string-array name="lista_año">
+        <item> </item>
+        <item>2018</item>
+        <item>2003</item>
+        <item>2019</item>
+        <item>2017</item>
+        <item>2015</item>
+        <item>2002</item>
+        <item>2005</item>
+        <item>2016</item>
+        <item>2017</item>
+    </string-array>
+
+</resources>
