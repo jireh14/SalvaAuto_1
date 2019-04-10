@@ -41,19 +41,20 @@
 
             <TextView
                 android:id="@+id/text_falla"
-                android:text="ID de la Falla"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/design_default_color_primary"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Código de Falla"
+                android:textColor="@color/design_default_color_primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <EditText
-                android:id="@+id/edit_falla"
-                android:hint="ID de la Falla"
-                android:enabled="false"
-                android:inputType="text"
+                android:id="@+id/edit_codigo_falla"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="Código de Falla"
+                android:inputType="text" />
 
             <TextView
                 android:id="@+id/text_descripcion"
@@ -79,13 +80,14 @@
                 android:textColor="@color/design_default_color_primary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
             <EditText
-                android:id="@+id/edit_causas"
-                android:hint="Causas"
-                android:enabled="false"
-                android:inputType="text"
+                android:id="@+id/edit_causa"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="Causas"
+                android:inputType="text" />
 
             <TextView
                 android:id="@+id/text_imagen"

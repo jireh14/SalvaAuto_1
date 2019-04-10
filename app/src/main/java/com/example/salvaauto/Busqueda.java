@@ -31,21 +31,40 @@ public class Busqueda extends AppCompatActivity {
     Spinner spinner_modelo;
     Spinner spinner_año;
     EditText edit_codigo_falla;
+    EditText edit_descripcion;
+    EditText edit_causa;
+    ImageView iv_imagen;
     String[] items;
     private boolean isFirstTime = true;
 
     private String webservice_url = "https://salvatuauto.herokuapp" +
-            ".com/api_fallas?user_hash=1234&action=put&";
+            ".com/api_fallas?user_hash=1234&action=get&codigo_falla=";
+    private String images_url = "http://salvatuauto.herokuapp" +
+            ".com/static/files/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         setContentView(R.layout.activity_busqueda);
+
         //inicialización de EditText de la vista
         spinner_marca = (Spinner) findViewById(R.id.spinner_marca);
         spinner_modelo = (Spinner) findViewById(R.id.spinner_modelo);
         spinner_año = (Spinner) findViewById(R.id.spinner_año);
-        edit_codigo_falla = (EditText) findViewById(R.id.edit_codigo_falla);
+        edit_codigo_falla = findViewById(R.id.edit_codigo_falla);
+        edit_descripcion = findViewById(R.id.edit_descripcion);
+        edit_causa = findViewById(R.id.edit_causa);
+        iv_imagen = findViewById(R.id.iv_imagen);
+
+        //Objeto tipo Intent para recuperar el parametro enviado
+        Intent intent = getIntent();
+        //Se almacena el codigo_falla enviado
+        String codigo_falla = intent.getStringExtra(Historial.CODIGO_FALLA);
+        //Se concatena la url con el codigo_falla para obtener los datos el cliente
+        webservice_url+=codigo_falla;
+        webServiceRest(webservice_url);
+
         items= getResources().getStringArray(R.array.lista_marca);
         ArrayAdapter<String> adapter= new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_spinner_item,items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -106,22 +125,14 @@ public class Busqueda extends AppCompatActivity {
 
             }
         });
+
     }
-    public void activityInsertOnClick(View view){
-        StringBuilder sb = new StringBuilder();
-        sb.append(webservice_url);
-        sb.append("marca="+spinner_marca.toString());
-        sb.append("&");
-        sb.append("modelo="+spinner_modelo.toString());
-        sb.append("&");
-        sb.append("anio="+spinner_año.toString());
-        sb.append("&");
-        sb.append("codigo_falla="+edit_codigo_falla.getText());
-        sb.append("&");
-        webServicePut(sb.toString());
-        Log.e("URL",sb.toString());
+    public void activitySearchOnClick(View view){
+        Intent intent = new Intent(Busqueda.this,Resultado.class);
+        startActivity(intent);
     }
-    private void webServicePut(String requestURL){
+
+    private void webServiceRest(String requestURL){
         try{
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -137,10 +148,13 @@ public class Busqueda extends AppCompatActivity {
             Log.e("Error 100",e.getMessage());
         }
     }
+
     private void parseInformation(String jsonResult){
         JSONArray jsonArray = null;
-        String status;
-        String description;
+        String codigo_falla;
+        String descripcion;
+        String causa;
+        String imagen;
         try{
             jsonArray = new JSONArray(jsonResult);
         }catch (JSONException e){
@@ -149,13 +163,26 @@ public class Busqueda extends AppCompatActivity {
         for(int i=0;i<jsonArray.length();i++){
             try{
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                //Se obtiene cada uno de los datos cliente del webservice
-                status = jsonObject.getString("status");
-                description = jsonObject.getString("description");
-                Log.e("STATUS",status);
-                Log.e("DESCRIPTION",description);
+                //Se obtiene cada uno de los datos de falla del webservice
+                codigo_falla = jsonObject.getString("codigo_falla");
+                descripcion = jsonObject.getString("descripcion");
+                causa = jsonObject.getString("causa");
+                imagen = jsonObject.getString("imagen");
+
+                //Se muestran los datos de falla en su respectivo EditText
+                edit_codigo_falla.setText(codigo_falla);
+                edit_descripcion.setText(descripcion);
+                edit_causa.setText(causa);
+                URL newurl = new URL(images_url+imagen);
+                Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection() .getInputStream());
+                iv_imagen.setImageBitmap(mIcon_val);
+
             }catch (JSONException e){
                 Log.e("Error 102",e.getMessage());
+            } catch (MalformedURLException e) {
+                Log.e("Error 103",e.getMessage());
+            } catch (IOException e) {
+                Log.e("Error 104",e.getMessage());
             }
         }
     }
