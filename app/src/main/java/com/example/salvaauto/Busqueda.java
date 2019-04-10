@@ -37,8 +37,9 @@ public class Busqueda extends AppCompatActivity {
     String[] items;
     private boolean isFirstTime = true;
 
-    private String webservice_url = "https://salvatuauto.herokuapp" +
-            ".com/api_fallas?user_hash=1234&action=get&codigo_falla=";
+    private String webservice_url = "http://salvatuauto.herokuapp" +
+            ".com/api_fallas?user_hash=12345&action=get&codigo_falla=";
+
     private String images_url = "http://salvatuauto.herokuapp" +
             ".com/static/files/";
 

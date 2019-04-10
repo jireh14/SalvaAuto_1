@@ -32,8 +32,8 @@ public class Resultado extends AppCompatActivity {
     ImageView iv_imagen;
     Button button_añadir;
 
-    private String webservice_url = "https://salvatuauto.herokuapp" +
-            ".com/api_fallas?user_hash=1234&action=get&codigo_falla=";
+    private String webservice_url = "http://salvatuauto.herokuapp" +
+            ".com/api_fallas?user_hash=12345&action=get&codigo_falla=";
 
 
     private String images_url = "http://salvatuauto.herokuapp" +
@@ -84,7 +84,7 @@ public class Resultado extends AppCompatActivity {
     }
     private void parseInformation(String jsonResult){
         JSONArray jsonArray = null;
-        String id_codigo_falla;
+        String codigo_falla;
         String descripcion;
         String causa;
         String imagen;
@@ -97,13 +97,13 @@ public class Resultado extends AppCompatActivity {
             try{
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 //Se obtiene cada uno de los datos falla del webservice
-                id_codigo_falla= jsonObject.getString("id_codigo_falla");
+                codigo_falla= jsonObject.getString("codigo_falla");
                 descripcion = jsonObject.getString("descripcion");
                 causa = jsonObject.getString("causa");
                 imagen = jsonObject.getString("imagen");
 
                 //Se muestran los datos de la falla en su respectivo EditText
-                edit_codigo_falla.setText(id_codigo_falla);
+                edit_codigo_falla.setText(codigo_falla);
                 edit_descripcion.setText(descripcion);
                 edit_causa.setText(causa);
                 URL newurl = new URL(images_url+imagen);

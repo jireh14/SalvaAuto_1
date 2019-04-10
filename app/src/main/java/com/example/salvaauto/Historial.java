@@ -20,8 +20,9 @@ import java.net.URL;
 public class Historial extends AppCompatActivity {
     private ListView mi_lista;
     private ArrayAdapter adapter;
-    private  String url= "https://salvatuauto.herokuapp" +
-            ".com/api_fallas?user_hash=1234&action=get";
+
+    private  String url= "http://salvatuauto.herokuapp" +
+            ".com/api_fallas?user_hash=12345&action=get";
     public static final String CODIGO_FALLA= "1";
 
     @Override
