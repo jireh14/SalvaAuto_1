@@ -21,19 +21,19 @@ public class Historial extends AppCompatActivity {
     private ListView mi_lista;
     private ArrayAdapter adapter;
 
-    private  String url= "http://salvatuauto.herokuapp" +
-            ".com/api_fallas?user_hash=12345&action=get";
+    private  String url= "https://salvatuauto.herokuapp" +
+        ".com/api_fallas?user_hash=dc243fdf1a24cbced74db81708b30788&action=get&codigo_falla=";
+
     public static final String CODIGO_FALLA= "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_historial);
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
+        setContentView(R.layout.activity_historial);
         mi_lista = findViewById(R.id.mi_lista);
-        adapter = new ArrayAdapter(this, R.layout.falla_item);
+        adapter = new ArrayAdapter(this, R.layout.codigo_falla_item);
         mi_lista.setAdapter(adapter);
-        webServiceRest(url);
 
         mi_lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -43,7 +43,7 @@ public class Historial extends AppCompatActivity {
                         mi_lista.getItemAtPosition(position).toString().split(":");
                 String codigo_falla = datos_codigo_falla[0];
                 Log.e("CODIGO_FALLA",codigo_falla);
-                Intent i = new Intent(Historial.this, Resultado.class);
+                Intent i = new Intent(Historial.this, ActivityResult.class);
                 i.putExtra(CODIGO_FALLA,codigo_falla);
                 startActivity(i);
             }
@@ -88,7 +88,7 @@ public class Historial extends AppCompatActivity {
                 descripcion = jsonObject.getString("descripcion");
                 causa = jsonObject.getString("causa");
                 imagen = jsonObject.getString("imagen");
-                adapter.add(codigo_falla + ":" + descripcion + " " + causa );
+                adapter.add(codigo_falla + ":" + descripcion + " " + causa + " " + imagen);
             }catch (JSONException e){
                 Log.e("Error 102",e.getMessage());
             }

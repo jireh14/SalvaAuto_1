@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:foreground="@android:color/transparent"
     tools:context=".Busqueda">
 
     <ImageView
@@ -131,7 +133,7 @@
         android:layout_marginEnd="8dp"
         android:background="@color/design_default_color_primary_dark"
         android:backgroundTint="@color/design_default_color_primary_dark"
-        android:onClick="activitySearchOnClick"
+        android:onClick="button_buscar_OnClick"
         android:text="Buscar"
         android:textColor="@android:color/background_light"
         android:textSize="24sp"
@@ -158,7 +160,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner_año"
+        android:id="@+id/spinner_anio"
         android:layout_width="111dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

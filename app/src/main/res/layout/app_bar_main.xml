@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/holo_green_light"
+            android:background="@android:color/holo_green_dark"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -24,37 +24,45 @@
         android:id="@+id/include"
         layout="@layout/content_main" />
 
-    <ImageView
-        android:layout_width="59dp"
-        android:layout_height="59dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/ic_menu2"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="right|bottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.907"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end" />
+        android:layout_width="59dp"
+        android:layout_height="59dp"
+        android:layout_gravity="bottom|end"
+        android:background="@drawable/ic_importantes3"
+        android:backgroundTint="@color/design_default_color_primary_dark"
+        />
 
 
     <TextView
         android:id="@+id/text_bienvenido"
         android:layout_width="match_parent"
         android:layout_height="538dp"
-        android:text="BIENVENIDO A SALVA TU AUTO"
+        android:text="BIENVENIDO A SALVA TU AUTO "
         android:textAlignment="center"
         android:textColor="@color/design_default_color_primary_dark"
-        android:textSize="56sp"
+        android:textSize="46sp"
         android:textStyle="bold"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="bottom|center" />
+
+    <TextView
+        android:id="@+id/text_segundo_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="375dp"
+        android:text="Podrás obtener información de un Código de Falla sobre su descripción, sus causas y una imagen de la pieza que arroja el código de falla"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_primary"
+        android:textSize="23sp"
+        android:textStyle="normal"
+        app:layout_anchor="@+id/image_logo"
+        app:layout_anchorGravity="top|center" />
+
+    <ImageView
+        android:id="@+id/image_logo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:background="@drawable/ic_menu4"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|center" />
 

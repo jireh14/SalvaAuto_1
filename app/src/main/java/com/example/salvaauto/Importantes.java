@@ -20,9 +20,11 @@ import java.net.URL;
 public class Importantes extends AppCompatActivity {
     private ListView lv_importantes;
     private ArrayAdapter adapter;
+
     private String url = "https://salvatuauto.herokuapp" +
-            ".com/api_fallas?user_hash=12345&action=get=";
-    public static final String ID_FALLA = "1";
+        ".com/api_fallas?user_hash=dc243fdf1a24cbced74db81708b30788&action=get&codigo_falla=codigo_falla";
+
+    public static final String CODIGO_FALLA = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class Importantes extends AppCompatActivity {
         setContentView(R.layout.activity_importantes);
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         lv_importantes = findViewById(R.id.lv_importantes);
-        adapter = new ArrayAdapter(this, R.layout.falla_item);
+        adapter = new ArrayAdapter(this, R.layout.codigo_falla_item);
         lv_importantes.setAdapter(adapter);
         webServiceRest(url);
 
@@ -38,12 +40,12 @@ public class Importantes extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("ITEM", lv_importantes.getItemAtPosition(position).toString());
-                String datos_falla[] =
+                String datos_codigo_falla[] =
                         lv_importantes.getItemAtPosition(position).toString().split(":");
-                String id_falla = datos_falla[0];
-                Log.e("ID_FALLA",id_falla);
+                String codigo_falla = datos_codigo_falla[0];
+                Log.e("CODIGO_FALLA",codigo_falla);
                 Intent i = new Intent(Importantes.this, Importantes.class);
-                i.putExtra(ID_FALLA,id_falla);
+                i.putExtra(CODIGO_FALLA,codigo_falla);
                 startActivity(i);
             }
         });

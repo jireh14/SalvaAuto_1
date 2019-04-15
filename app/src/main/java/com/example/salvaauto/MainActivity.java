@@ -1,5 +1,7 @@
 package com.example.salvaauto;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,8 +16,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private String title;
+    private String message;
+    private String aceptText;
+
+    private String webservice_url = "http://salvatuauto.herokuapp" +
+            ".com/api_fallas?user_hash=dc243fdf1a24cbced74db81708b30788&action=get&codigo_falla=";
+
+    private String images_url = "http://salvatuauto.herokuapp" +
+        ".com/static/files/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "¡BIENVENIDO! Desliza a la Derecha y haz tu Búsqueda", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -43,15 +55,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,35 +84,51 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_iniciar_sesion) {
-            Intent intent = new Intent(getApplicationContext(), LoginSalva.class);
-            startActivity(intent);
-
-        }else if (id == R.id.nav_busqueda) {
+        if (id == R.id.nav_busqueda) {
             Intent intent = new Intent(getApplicationContext(), Busqueda.class);
             startActivity(intent);
-        }else if (id == R.id.nav_resultado) {
-            Intent intent = new Intent(getApplicationContext(), Resultado.class);
-            startActivity(intent);
+
         } else if (id == R.id.nav_historial) {
             Intent intent = new Intent(getApplicationContext(), Historial.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_configuracion) {
-            Intent intent = new Intent(getApplicationContext(), Configuracion.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_cerrar_sesion) {
-            Intent intent = new Intent(getApplicationContext(), CerrasSesion.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_importantes) {
-            Intent intent = new Intent(getApplicationContext(), Importantes.class);
             startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    @Override
+    public void onBackPressed(){
+        MessageButtonOkCancel("Salva tu Auto", "¿Desea cerrar la Aplicación?", "Salir", "Cancelar");
+        AlertDialog.Builder alertDialog= new AlertDialog.Builder(this);
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+
+        alertDialog.setPositiveButton(aceptText, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface alertDialog, int id) {
+                finish();
+            }
+        });
+
+    }
+
+
+
+    private void MessageButtonOkCancel(String title, String message, String aceptText, String cancelText) {
+        AlertDialog.Builder alertDialog= new AlertDialog.Builder(this);
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setCancelable(false);
+        alertDialog.setPositiveButton(aceptText, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface alertDialog, int id) {
+                finish();
+            }
+        });
+        alertDialog.setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface alertDialog, int id) {
+
+            }
+        });
+        alertDialog.show();
     }
 }
